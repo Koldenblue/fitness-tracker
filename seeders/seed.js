@@ -1,5 +1,6 @@
 let mongoose = require("mongoose");
-let db = require("../models");
+
+let db = require("../models");  // requires the index.js file in models folder
 
 mongoose.connect("mongodb://localhost/workout", {
   useNewUrlParser: true,
