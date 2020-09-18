@@ -6,6 +6,11 @@ module.exports = function(app) {
   // is last in the array
   app.get("/api/workouts", (req, res) => {
     db.Workout.find({}).sort({day:1}).then((data) => {
+      // const { exercises } = data;
+      // const totalDuration = exercises.reduce((accum, current) => (accum + current.duration), 0);
+      // const newData = Object.assign(data, totalDuration)
+      // data.setTotalDuration()
+      // res.json(newData);
       res.json(data);
     }).catch((err) => {
       res.json(err);
@@ -27,26 +32,30 @@ module.exports = function(app) {
   })
 
   app.put("/api/workouts/:id", (req, res) => {
-    let userId = req.params.id
-    console.log(req.body)
+    // console.log(req.body)
     // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    let doc = db.Workout.findOne({_id: userId}, (err, doc) => {
-      if (err) throw err;
-      doc.exercise.push(req.body)
-      doc.save()
-      console.log(doc)
-      res.json(doc)
-
-      // doing it this way, each req.body object added to the doc has its own _id
-      // _id cannot be deleted:
-      // delete doc.exercise[doc.exercise.length - 1]['_id']
-      // console.log(doc.exercise[doc.exercise.length - 1])
-      // console.log("======================")
-    })
-    // db.Workout.updateOne({_id: userId}, req.body, (err, data) => {
-    //   console.log(data);
-    //   res.json(data);
+    // let doc = db.Workout.findOne({_id: req.params.id}, (err, doc) => {
+    //   if (err) throw err;
+    //   doc.exercises.push(req.body)
+    //   doc.save()
+    //   console.log(doc)
+    //   res.json(doc)
+      
+    //   // doing it this way, each req.body object added to the doc has its own _id
+    //   // _id cannot be deleted:
+    //   // delete doc.exercise[doc.exercise.length - 1]['_id']
+    //   // console.log(doc.exercise[doc.exercise.length - 1])
+    //   // console.log("======================")
     // })
+
+
+    db.Workout.findOneAndUpdate({_id: req.params.id}, {$push: {exercises: req.body}}, (err, data) => {
+      console.log(data);
+      // const { exercises } = data;
+      // const totalDuration = exercises.reduce((accum, current) => (accum + current.duration), 0);
+      // db.Workout.findOneAndUpdate({_id: req.params.id}, {$set: {...data, totalDuration}})
+      res.json(data);
+    })
   })
 }
 

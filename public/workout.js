@@ -14,7 +14,8 @@ async function initWorkout() {
     };
 
     renderWorkoutSummary(workoutSummary);
-  } else {
+  } 
+  else {
     renderNoWorkoutText()
   }
 }
