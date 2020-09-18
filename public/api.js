@@ -16,6 +16,8 @@ const API = {
 
     return json[json.length - 1];
   },
+
+  /** updates the workout data for a user with a given id */
   async addExercise(data) {
     const id = location.search.split("=")[1];
 
@@ -29,6 +31,8 @@ const API = {
 
     return json;
   },
+
+  /**  */
   async createWorkout(data = {}) {
     const res = await fetch("/api/workouts", {
       method: "POST",

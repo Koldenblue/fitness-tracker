@@ -32,6 +32,7 @@ async function initExercise() {
 
 initExercise();
 
+/** changes the inputs, depending on whether workout is cardio or resistance */
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
 
@@ -49,6 +50,8 @@ function handleWorkoutTypeChange(event) {
   validateInputs();
 }
 
+/** Function that checks the exercise form inputs.
+ *  if the exercise form inputs are empty, the buttons are inactive */
 function validateInputs() {
   let isValid = true;
 
@@ -114,6 +117,7 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
 
+  
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
