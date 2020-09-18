@@ -7,28 +7,33 @@ const workoutSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  type: {
-    type: String,
-    require: true
-  },
-  name: {
-    type: String,
-    require: true
-  },
-  duration: {
-    type: Number,
-    require: true
-  },
-  weight: {
-    type: Number
-  },
-  reps: {
-    type: Number
-  },
-  sets: {
-    type: Number
-  }
-
+  exercise: [{
+    type: {
+      type: String,
+      require: true,
+      default: ""
+    },
+    name: {
+      type: String,
+      require: true,
+      default: ""
+    },
+    distance: Number,
+    duration: {
+      type: Number,
+      require: true,
+      default: 0
+    },
+    weight: {
+      type: Number
+    },
+    reps: {
+      type: Number
+    },
+    sets: {
+      type: Number
+    }
+  }]
 });
 
 // method totalDuration - for workout.js

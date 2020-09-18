@@ -32,7 +32,7 @@ const API = {
     return json;
   },
 
-  /**  */
+  /** Creates a new workout */
   async createWorkout(data = {}) {
     const res = await fetch("/api/workouts", {
       method: "POST",

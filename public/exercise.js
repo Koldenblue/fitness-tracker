@@ -24,10 +24,10 @@ async function initExercise() {
     workout = await API.createWorkout()
     console.log(workout)
   }
+  // if a new workout is created , then its id is appended to the search bar
   if (workout) {
     location.search = "?id=" + workout._id;
   }
-
 }
 
 initExercise();
@@ -117,7 +117,8 @@ async function handleFormSubmit(event) {
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
 
-  
+  // so on submitting the form, the success toast is displayed, after accessing the put route
+  // for the workout with a particular id
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
@@ -144,6 +145,8 @@ function clearInputs() {
 if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
 }
+
+//both the complete button and add exercise button add an exercise. but the complete button navigates away
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;
