@@ -1,7 +1,10 @@
+// node seed.js to run this file
+// This file seeds the database so that it can appear in Robo3T!
 let mongoose = require("mongoose");
 
-let db = require("../models");  // requires the index.js file in models folder
+let db = require("../models"); // requires the index.js file in models folder
 
+// This code connects to local workout database
 mongoose.connect("mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
@@ -125,6 +128,7 @@ let workoutSeed = [
   }
 ];
 
+// delete the items in the database, then insert the seed
 db.Workout.deleteMany({})
   .then(() => db.Workout.collection.insertMany(workoutSeed))
   .then(data => {

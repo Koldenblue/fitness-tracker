@@ -1,6 +1,8 @@
-const Workout = require("../models/workout")
+const Workout = require("../models/workoutModel")
 
 module.exports = function(app) {
+
+  // route to get all data
   app.get("/api/workouts", (req, res) => {
     Workout.find({}).then((data) => {
       res.json(data);
@@ -9,6 +11,11 @@ module.exports = function(app) {
     })
   })
 
+  app.get("/api/workouts/range", (req, res) => {
+    res.status(200).end();
+  })
+
+  // post a new workout. Used by exercise.html.
   app.post("/api/workouts", (req, res) => {
     Workout.create(req.body).then((data) => {
       res.json(data);
@@ -18,13 +25,11 @@ module.exports = function(app) {
   })
 
   app.put("/api/workouts/:id", (req, res) => {
-    
+
     console.log(req.params.id)
     res.status(200).end();
   })
 
-  app.get("/api/workouts/range", (req, res) => {
-    res.status(200).end();
-  })
+
 
 }
