@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// for logging routing requests
 app.use(logger("dev"));
 
 app.use(express.urlencoded({ extended: true }));

@@ -1,4 +1,10 @@
+// The API object consists of four functions, 
+// and is combined with the other scripts in the individual html pages
 const API = {
+
+  /** asynchronously gets the "api/workouts" route and waits for the response from the API.
+   * Then it returns the last workout in the array of workouts returned.
+   * Therefore the workouts should be returned oredered by date. */
   async getLastWorkout() {
     let res;
     try {

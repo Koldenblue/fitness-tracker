@@ -2,9 +2,10 @@ const Workout = require("../models/workoutModel")
 
 module.exports = function(app) {
 
-  // route to get all data
+  // route to get all data. Workouts are sorted so that the latest workout
+  // is last in the array
   app.get("/api/workouts", (req, res) => {
-    Workout.find({}).then((data) => {
+    Workout.find({}).sort({day:1}).then((data) => {
       res.json(data);
     }).catch((err) => {
       res.json(err);
