@@ -29,22 +29,24 @@ module.exports = function(app) {
   app.put("/api/workouts/:id", (req, res) => {
     let userId = req.params.id
     console.log(req.body)
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     let doc = db.Workout.findOne({_id: userId}, (err, doc) => {
       if (err) throw err;
       doc.exercise.push(req.body)
       doc.save()
       console.log(doc)
+      res.json(doc)
+
       // doing it this way, each req.body object added to the doc has its own _id
       // _id cannot be deleted:
       // delete doc.exercise[doc.exercise.length - 1]['_id']
       // console.log(doc.exercise[doc.exercise.length - 1])
       // console.log("======================")
     })
-    db.Workout.updateOne({_id: userId}, req.body, (err, data) => {
-      console.log(data);
-      res.json(data);
-    })
+    // db.Workout.updateOne({_id: userId}, req.body, (err, data) => {
+    //   console.log(data);
+    //   res.json(data);
+    // })
   })
 }
 
