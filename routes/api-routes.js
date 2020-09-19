@@ -32,30 +32,55 @@ module.exports = function(app) {
   })
 
   app.put("/api/workouts/:id", (req, res) => {
-    // console.log(req.body)
-    // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    // let doc = db.Workout.findOne({_id: req.params.id}, (err, doc) => {
-    //   if (err) throw err;
-    //   doc.exercises.push(req.body)
-    //   doc.save()
-    //   console.log(doc)
+    console.log(req.body)
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    db.Workout.findOne({_id: req.params.id}, (err, doc) => {
+      if (err) throw err;
+      console.log(doc);
+      doc.exercises.push(req.body)
+      let totalDuration = 0;
+      for (let i = 0, j = doc.exercises.length; i < j; i++) {
+        totalDuration += doc.exercises[i]["duration"];
+      }
+      console.log("duration is " + totalDuration)
+      // doc.exercises.setTotalDuration();
+      // the updated document will not actually be saved without the .save() method
+      doc.save()
+      console.log(doc)
+      res.json(doc)
+    })
+
+
+    // db.Workout.findOneAndUpdate({ _id: req.params.id }, { $push: {exercises: req.body} }).then((doc) => {
+    //   // with this method, the newly updated doc is not logged as updated
+    //   console.log(doc);
     //   res.json(doc)
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
+
+    // // updated data is not be logged here, either
+    // db.Workout.findOneAndUpdate({_id: req.params.id}, {$push: {exercises: req.body}}, (err, data) => {
+    //   console.log(data);
+    //   // even though we use the .save() method
+    //   data.save();
+    //   console.log(data)
+    //   // const { exercises } = data;
+    //   // const totalDuration = exercises.reduce((accum, current) => (accum + current.duration), 0);
+    //   // db.Workout.findOneAndUpdate({_id: req.params.id}, {$set: {...data, totalDuration}})
+    //   res.json(data);
+    // })
       
-    //   // doing it this way, each req.body object added to the doc has its own _id
-    //   // _id cannot be deleted:
-    //   // delete doc.exercise[doc.exercise.length - 1]['_id']
-    //   // console.log(doc.exercise[doc.exercise.length - 1])
-    //   // console.log("======================")
+      
+      // // each req.body object added to the doc.exercise array has its own _id
+      // // _id cannot be deleted:
+      // delete doc.exercises[doc.exercises.length - 1]['_id']
+      // console.log("======================")
     // })
 
 
-    db.Workout.findOneAndUpdate({_id: req.params.id}, {$push: {exercises: req.body}}, (err, data) => {
-      console.log(data);
-      // const { exercises } = data;
-      // const totalDuration = exercises.reduce((accum, current) => (accum + current.duration), 0);
-      // db.Workout.findOneAndUpdate({_id: req.params.id}, {$set: {...data, totalDuration}})
-      res.json(data);
-    })
+
+
   })
 }
 
