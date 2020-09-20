@@ -17,11 +17,22 @@ module.exports = function(app) {
     })
   })
 
+
   app.get("/api/workouts/range", (req, res) => {
-    res.status(200).end();
+    try {
+      db.Workout.find({}, (err, data) => {
+        if (err) throw err;
+        res.json(data);
+      })
+    }
+    catch (err) {
+      console.log(err);
+      res.json(err);
+    }
   })
 
-  // post a new workout. Used by exercise.html.
+
+  // POST a new workout. Used by exercise.html.
   app.post("/api/workouts", (req, res) => {
     console.log(req.body)
     db.Workout.create(req.body).then((data) => {
@@ -30,6 +41,7 @@ module.exports = function(app) {
       res.json(err);
     })
   })
+
 
   app.put("/api/workouts/:id", (req, res) => {
     console.log(req.body)

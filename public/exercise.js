@@ -17,9 +17,16 @@ const newWorkout = document.querySelector(".new-workout")
 let workoutType = null;
 let shouldNavigateAway = false;
 
+// THIS IS EXERCISE.HTML, THE PAGE WITH THE ADD AND COMPLETE EXERCISE BUTTONS
+
+
 async function initExercise() {
   let workout;
 
+  // as soon as this exercise.html page is brought up, an id
+  // is concatenated with the url, if not already there
+  // this happens if the 'new workout' button is pressed
+  // otherwise the last workout id is used, with 'continue workout'
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
     console.log(workout)
@@ -98,6 +105,8 @@ function validateInputs() {
   }
 }
 
+/** A function that takes the form values and updates
+ * the document in the database by adding to the exercise array */
 async function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -146,7 +155,8 @@ if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
 }
 
-//both the complete button and add exercise button add an exercise. but the complete button navigates away
+//both the complete button and add exercise button add an exercise, 
+// by calling handleFormSubmit(). but the complete button navigates away
 if (completeButton) {
   completeButton.addEventListener("click", function (event) {
     shouldNavigateAway = true;

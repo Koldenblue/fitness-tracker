@@ -17,7 +17,8 @@ const API = {
     return json[json.length - 1];
   },
 
-  /** updates the workout data for a user with a given id */
+  /** updates the workout data for a user with a given id. 
+   * This adds the new workout info to the exercises array */
   async addExercise(data) {
     const id = location.search.split("=")[1];
 
@@ -32,7 +33,8 @@ const API = {
     return json;
   },
 
-  /** Creates a new workout */
+  /** Creates a new workout by POST method 
+   * to /api/workouts. Returns the new document as json */
   async createWorkout(data = {}) {
     const res = await fetch("/api/workouts", {
       method: "POST",

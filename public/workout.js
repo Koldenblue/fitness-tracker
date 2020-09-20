@@ -1,3 +1,8 @@
+// This javascript file is called by index.js
+// it basically displays the last workout stats on the index.html page
+
+/** Retrieves the most recent workout from the database and calls
+ * renderWorkoutSummary() to display the stats */
 async function initWorkout() {
   const lastWorkout = await API.getLastWorkout();
   console.log("Last workout:", lastWorkout);
@@ -20,6 +25,8 @@ async function initWorkout() {
   }
 }
 
+/** used in the initWorkout function to tally the exercises
+ * although why would you tally everything but duration...? */
 function tallyExercises(exercises) {
   const tallied = exercises.reduce((acc, curr) => {
     if (curr.type === "resistance") {

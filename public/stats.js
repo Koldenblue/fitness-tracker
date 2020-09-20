@@ -1,4 +1,7 @@
 // get all workout data from back-end
+// The stats.html page calls this file, and stats.html is reached
+// by going to the "dashboard" anchor
+
 
 fetch("/api/workouts/range")
   .then(response => {
@@ -44,6 +47,7 @@ function populateChart(data) {
   let pie = document.querySelector("#canvas3").getContext("2d");
   let pie2 = document.querySelector("#canvas4").getContext("2d");
 
+  // giving error: Chart is not defined. Where does chart come from?
   let lineChart = new Chart(line, {
     type: "line",
     data: {

@@ -10,6 +10,8 @@ mongoose.connect("mongodb://localhost/workout", {
   useFindAndModify: false
 });
 
+// some of the days are formatted as ISO dates, and others are not?
+// Seems like ISO date is the way to go
 let workoutSeed = [
   {
     day: new Date().setDate(new Date().getDate()-10),
